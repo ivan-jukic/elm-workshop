@@ -1,38 +1,46 @@
 module Main exposing (..)
 
 import Browser exposing (sandbox)
-import Html exposing (Html, button, div, text)
-import Html.Events exposing (onClick)
+import Html exposing (Html, div)
 
 
-main : Program () Int Msg
+main : Program () Model Msg
 main =
     sandbox
-        { init = 0
+        { init = init
         , view = view
         , update = update
         }
 
 
+type alias ToDoItem =
+    String
+
+
+type alias Model =
+    { todoItems : List ToDoItem
+    , newTodoItem : String
+    }
+
+
+init : Model
+init =
+    { todoItems = []
+    , newTodoItem = ""
+    }
+
+
 type Msg
-    = Incr
-    | Decr
+    = NoOp
 
 
-update : Msg -> Int -> Int
+update : Msg -> Model -> Model
 update msg model =
     case msg of
-        Incr ->
-            model + 1
-
-        Decr ->
-            model - 1
+        NoOp ->
+            model
 
 
-view : Int -> Html Msg
+view : Model -> Html Msg
 view model =
-    div []
-        [ button [ onClick Incr ] [ text "+" ]
-        , div [] [ text (String.fromInt model) ]
-        , button [ onClick Decr ] [ text "-" ]
-        ]
+    div [] []
