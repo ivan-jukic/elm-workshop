@@ -1,10 +1,11 @@
 module Main exposing (..)
 
 import Browser exposing (sandbox)
-import Html exposing (button, div, text)
+import Html exposing (Html, button, div, text)
 import Html.Events exposing (onClick)
 
 
+main : Program () Int Msg
 main =
     sandbox
         { init = 0
@@ -18,6 +19,7 @@ type Msg
     | Decr
 
 
+update : Msg -> Int -> Int
 update msg model =
     case msg of
         Incr ->
@@ -27,6 +29,7 @@ update msg model =
             model - 1
 
 
+view : Int -> Html Msg
 view model =
     div []
         [ button [ onClick Incr ] [ text "+" ]
