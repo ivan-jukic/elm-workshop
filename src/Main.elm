@@ -1,9 +1,9 @@
 module Main exposing (..)
 
 import Browser exposing (sandbox)
-import Html exposing (Html, div, input)
+import Html exposing (Html, button, div, input, text)
 import Html.Attributes exposing (type_, value)
-import Html.Events exposing (onInput)
+import Html.Events exposing (onClick, onInput)
 
 
 main : Program () Model Msg
@@ -34,6 +34,7 @@ init =
 
 type Msg
     = NoOp
+    | AddTodoItem
     | SetNewTodoItemName String
 
 
@@ -43,6 +44,16 @@ update msg model =
         NoOp ->
             model
 
+        AddTodoItem ->
+            if String.length model.newTodoItem > 0 then
+                { model
+                    | todoItems = model.newTodoItem :: model.todoItems
+                    , newTodoItem = ""
+                }
+
+            else
+                model
+
         SetNewTodoItemName newName ->
             { model | newTodoItem = newName }
 
@@ -51,11 +62,23 @@ view : Model -> Html Msg
 view model =
     div []
         [ div []
+            (model.todoItems
+                |> List.reverse
+                |> List.map
+                    (\todoItem ->
+                        div [] [ text todoItem ]
+                    )
+            )
+        , div []
             [ input
                 [ type_ "text"
                 , value model.newTodoItem
                 , onInput SetNewTodoItemName
                 ]
                 []
+            , button
+                [ onClick AddTodoItem
+                ]
+                [ text "Add +" ]
             ]
         ]
