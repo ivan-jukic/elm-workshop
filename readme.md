@@ -14,9 +14,9 @@ The workshop consists of 6 exercises:
 
 1. Add missing function signatures
 2. Define model and types required for the todo app
-3. Add an input element, used to set new `todo` item text
-4. Implement `add` functionality, and render a list of todo items
-5. Implement `remove` functionality
+3. Add an html input element, which should be used to set new `todo` item text
+4. Implement item `add` functionality, and render a list of todo items
+5. Implement item `remove` functionality
 6. **Bonus exercise**: add some styling
 
 
