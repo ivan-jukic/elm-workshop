@@ -1,7 +1,9 @@
 module Main exposing (..)
 
 import Browser exposing (sandbox)
-import Html exposing (Html, div)
+import Html exposing (Html, div, input)
+import Html.Attributes exposing (type_, value)
+import Html.Events exposing (onInput)
 
 
 main : Program () Model Msg
@@ -32,6 +34,7 @@ init =
 
 type Msg
     = NoOp
+    | SetNewTodoItemName String
 
 
 update : Msg -> Model -> Model
@@ -40,7 +43,19 @@ update msg model =
         NoOp ->
             model
 
+        SetNewTodoItemName newName ->
+            { model | newTodoItem = newName }
+
 
 view : Model -> Html Msg
 view model =
-    div [] []
+    div []
+        [ div []
+            [ input
+                [ type_ "text"
+                , value model.newTodoItem
+                , onInput SetNewTodoItemName
+                ]
+                []
+            ]
+        ]
