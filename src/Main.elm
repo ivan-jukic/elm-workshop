@@ -35,6 +35,7 @@ init =
 type Msg
     = NoOp
     | AddTodoItem
+    | RemoveTodoItem String
     | SetNewTodoItemName String
 
 
@@ -43,6 +44,13 @@ update msg model =
     case msg of
         NoOp ->
             model
+
+        RemoveTodoItem removeItem ->
+            { model
+                | todoItems =
+                    model.todoItems
+                        |> List.filter (\item -> item /= removeItem)
+            }
 
         AddTodoItem ->
             if String.length model.newTodoItem > 0 then
@@ -66,7 +74,10 @@ view model =
                 |> List.reverse
                 |> List.map
                     (\todoItem ->
-                        div [] [ text todoItem ]
+                        div []
+                            [ text todoItem
+                            , button [ onClick (RemoveTodoItem todoItem) ] [ text "×" ]
+                            ]
                     )
             )
         , div []
