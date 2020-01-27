@@ -4,19 +4,25 @@ This repo contains Elm code for a simple ToDo app, created for an Elm workshop!
 To start the workshop, checkout to the `ws-start` tag, and then create a new
 branch:
 
-```
+```bash
 git checkout ws-start
 
 git checkout -b <name for your branch>
 ```
 
+Install required dependencies:
+
+```bash
+yarn install
+```
+
 Use **Elm** `reactor` to start the app:
 
-```
+```bash
 yarn elm reactor --port=<port number>
 ```
 
-By default `elm reactor`uses port `8000`, so you can ignore the port flag if 
+By default `elm reactor` uses port `8000`, so you can ignore the port flag if 
 this port is available on your machine.
 
 
@@ -35,7 +41,7 @@ The workshop consists of 6 exercises:
 Each exercise step is tagged, you can use git to checkout to any one of them,
 and review the code if necessary. To view the tags:
 
-```
+```bash
 git tag -l
 ```
 
