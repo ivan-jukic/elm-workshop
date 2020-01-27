@@ -10,6 +10,18 @@ git checkout ws-start
 git checkout -b <name for your branch>
 ```
 
+Use **Elm** `reactor` to start the app:
+
+```
+yarn elm reactor --port=<port number>
+```
+
+By default `elm reactor`uses port `8000`, so you can ignore the port flag if 
+this port is available on your machine.
+
+
+## What to do?
+
 The workshop consists of 6 exercises:
 
 1. Add missing function signatures
