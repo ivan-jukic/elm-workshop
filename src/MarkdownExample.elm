@@ -16,9 +16,14 @@ And this is just some new line with `code` and _italics_!
 
 ###### Here some more, and h6 heading
 
+
+Heading with the weird syntax
+-----------------------------
+
+
 # H1 heading
 
-"""
+and some regular text for the end without new line at the end"""
 
 
 main : Program () Int msg

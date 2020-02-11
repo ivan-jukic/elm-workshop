@@ -38,6 +38,54 @@ type BlockContent
 
 
 
+-- LOOKBEHIND CONTENT
+
+
+{-| Certain things can only be parsed if we know what comes after. For example,
+we can have Heading 1 or Heading 2 defined by a new line of "=" or "-" of the
+same length as the previous line with text.
+
+    Eg.
+        This is some H1 text
+        ====================
+
+        And this is H2 text
+        -------------------
+
+To parse this kind of content, we take a line, and then check if the next line
+matches anything that would indicate that the previous line is special kind of
+content. In our case line with "=" or "-" indicates that the previous line is
+actually a heading.
+
+-}
+type LookaheadContent
+    = HeadingUnderline HeadingType String
+    | NoLookahead
+
+
+lookaheadToHeading : String -> String -> HeadingType -> List MarkdownBlock
+lookaheadToHeading headingText headingUnderline headingType =
+    let
+        areEqualLengths : String -> String -> Bool
+        areEqualLengths a b =
+            String.length a == String.length b
+    in
+    if areEqualLengths headingText headingUnderline then
+        List.singleton <|
+            Heading headingType headingText
+
+    else
+        -- We don't want to lose underline text, as it will be rendered as a
+        -- regular body paragraph. This should give visual indication that the
+        -- underline did not fit the title. They are in reversed order because
+        -- once the parsing of the whole thing is done, parsed content order is
+        -- reversed.
+        [ Body headingUnderline
+        , Body headingText
+        ]
+
+
+
 -- HEADING TYPE
 
 
